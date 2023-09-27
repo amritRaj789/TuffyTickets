@@ -43,6 +43,9 @@ describe("TuffyTickets", () => {
             let symbol = await tuffyTickets.symbol();
             expect(symbol).to.equal(SYMBOL)
         })
+        it("Sets the owner", async() => {
+            expect(await tuffyTickets.owner()).to.equal(deployer.address)
+        })
     })
 
 
