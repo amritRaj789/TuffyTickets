@@ -1,4 +1,5 @@
 const {expect} = require("chai");
+const { ethers } = require("hardhat");
 //const { ethers } = require("hardhat");
 
 const NAME = "TuffyTickets";
@@ -24,9 +25,11 @@ describe("TuffyTickets", () => {
 
     //shorter way is this
     let TuffyTickets
+    let deployer, buyer;
 
     beforeEach(async() => {
         // setup accounts
+        [deployer, buyer] = await ethers.getSigners();
         const TuffyTickets = await ethers.getContractFactory("TuffyTickets");
         tuffyTickets = await TuffyTickets.deploy(NAME, SYMBOL)
     })
