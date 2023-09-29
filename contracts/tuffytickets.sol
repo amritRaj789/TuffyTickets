@@ -20,6 +20,12 @@ contract TuffyTickets is ERC721 {
 
     mapping(uint256 => Occasion) occasions;
 
+    // to add security so that only the dev can create and add events to the smart contract
+    modifier onlyOwner(){
+        require(msg.sender == owner);
+        _;
+    }
+
     constructor(
         string memory _name,
          string memory _symbol
@@ -34,7 +40,8 @@ contract TuffyTickets is ERC721 {
         string memory _date, // event date
         string memory _time, // event time
         string memory _location // event location
-        ) public{
+        ) public onlyOwner{
+    
             totalOccasions += 1;
 
             occasions[totalOccasions] = Occasion(
