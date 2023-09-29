@@ -75,6 +75,18 @@ describe("TuffyTickets", () => {
             const totalOccasions = await tuffyTickets.totalOccasions()
             expect(totalOccasions).to.be.equal(1)
         })
+
+        // test example to update the occasions and check the attributes
+        it("Returns occasions attributes", async() => {
+            const occasion = await tuffyTickets.getOccasion(1)
+            expect(occasion.id).to.be.equal(1)
+            expect(occasion.name).to.be.equal(OCCASION_NAME)
+            expect(occasion.cost).to.be.equal(OCCASION_COST)
+            expect(occasion.tickets).to.be.equal(OCCASION_MAX_TICKETS)
+            expect(occasion.date).to.be.equal(OCCASION_DATE)
+            expect(occasion.time).to.be.equal(OCCASION_TIME)
+            expect(occasion.location).to.be.equal(OCCASION_LOCATION)
+        })
     })
 
 
