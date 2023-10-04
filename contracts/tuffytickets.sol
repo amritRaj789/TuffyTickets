@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract TuffyTickets is ERC721 {
     address public owner; // the developer in our case
     uint256 public totalOccasions; // counter for number of Occasions
+    uint256 public totalSupply; // number of NFTs that has been created and exist
 
     struct Occasion { // we cannot name a variable as Event in Solidity as it is a reserved keyword
         uint256 id;
@@ -19,7 +20,10 @@ contract TuffyTickets is ERC721 {
     }
 
     mapping(uint256 => Occasion) occasions;
-
+    mapping(uint256 => mapping(address => bool)) public hasBought;
+    mapping(uint256 => mapping(uint256 => address)) public seatTaken; // this will tell the address of the user who has taken a particular seat
+    mapping(uint256 => uint256[]) seatsTaken;
+    
     // to add security so that only the dev can create and add events to the smart contract
     modifier onlyOwner(){
         require(msg.sender == owner);
@@ -55,6 +59,21 @@ contract TuffyTickets is ERC721 {
                 _location
             );
 
+    }
+
+
+    function mint(uint256 _id, uint256 _seat) public payable{ // we must have a payable modifier here so one can send cryptocurrency
+        
+        occasions[_id].tickets -= 1; // decrease the number of available seats or max tickets for that event
+        
+        hasBought[_id][msg.sender] = true; // update buying status
+        seatTaken[_id][_seat] = msg.sender; // assign seat
+        
+        seatsTaken[_id].push(_seat); // updates seats currently taken
+        
+        totalSupply++; // we want to increase the supply count every time this function is called
+        
+        _safeMint(msg.sender, totalSupply);
     }
 
     function getOccasion(uint256 _id) public view returns (Occasion memory){
