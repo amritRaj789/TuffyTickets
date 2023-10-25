@@ -64,7 +64,16 @@ contract TuffyTickets is ERC721 {
 
 
     function mint(uint256 _id, uint256 _seat) public payable{ // we must have a payable modifier here so one can send cryptocurrency
-        
+        require(_id != 0); // require _id is not 0
+        require(_id <= totalOccasions); // require _id is not less than total occasions...
+
+        // Require that ETH sent is greater than cost
+        require(msg.value >= occasions[_id].cost);
+
+        // Require seat is not taken and the seat exists...
+        require(seatTaken[_id][_seat] == address(0));
+        require(_seat <= occasions[_id].maxTickets);
+
         occasions[_id].tickets -= 1; // decrease the number of available seats or max tickets for that event
         
         hasBought[_id][msg.sender] = true; // update buying status
