@@ -16,21 +16,7 @@ const OCCASION_LOCATION = "Santa Ana, California"
 
 describe("TuffyTickets", () => {
     
-    // this is longer way which adds redundancy
-    /*describe("Deployment", () => { 
-        it("Sets the name", async() => { // sets the name of the contract
-            const TuffyTickets = await ethers.getContractFactory("TuffyTickets")
-            let tuffyTickets = await TuffyTickets.deploy("TuffyTickets", "TT")
-            let name = await tuffyTickets.name();
-            expect(name).to.equal("TuffyTickets")
-        })
-        it("Sets the symbol", async() => { // sets the name of the contract
-            const TuffyTickets = await ethers.getContractFactory("TuffyTickets")
-            let tuffyTickets = await TuffyTickets.deploy("TuffyTickets", "TT")
-            let symbol = await tuffyTickets.symbol();
-            expect(symbol).to.equal("TT")
-        })
-    })*/
+    
 
     //shorter way is this
     let tuffyTickets;
@@ -102,6 +88,27 @@ describe("TuffyTickets", () => {
         it("Updates ticket count", async() => {
             const occasion = await tuffyTickets.getOccasion(1)
             expect(occasion.tickets).to.be.equal(OCCASION_MAX_TICKETS - 1)
+        })
+
+        it("Updates buying status", async () => {
+            const status = await tuffyTickets.hasBought(ID, buyer.address)
+            expect(status).to.be.equal(true)
+        })
+
+        it("Updates seat status", async () => {
+            const owner = await tuffyTickets.seatTaken(ID, SEAT)
+            expect(owner).to.equal(buyer.address)
+        })
+
+        it("Updates overall seating status", async () => {
+            const seats = await tuffyTickets.getSeatsTaken(ID)
+            expect(seats.length).to.equal(1)
+            expect(seats[0]).to.equal(SEAT)
+        })
+
+        it("Updates the contract balance", async () => {
+            const balance = await ethers.provider.getBalance(tuffyTickets.address)
+            expect(balance).to.be.equal(AMOUNT)
         })
     })
 

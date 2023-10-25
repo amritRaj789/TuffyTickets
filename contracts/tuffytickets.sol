@@ -1,4 +1,5 @@
-// SPDX-License Identifier: UNLICENSED
+// SPDX-License-Identifier: UNLICENSED 
+
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -78,6 +79,10 @@ contract TuffyTickets is ERC721 {
 
     function getOccasion(uint256 _id) public view returns (Occasion memory){
         return occasions[_id];
+    }
+
+    function getSeatsTaken(uint256 _id) public view returns (uint256[] memory){
+        return seatsTaken[_id]; // reads the true or false status from the array
     }
 }
 
