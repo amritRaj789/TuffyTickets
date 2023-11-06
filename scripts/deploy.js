@@ -28,15 +28,15 @@ async function main() {
       location: "Miami-Dade Arena - Miami, FL"
     },
     {
-      name: "ETH Tokyo",
+      name: "CPSC 597 Webinar",
       cost: tokens(1),
       tickets: 125,
       date: "Jun 2",
       time: "1:00PM JST",
-      location: "Tokyo, Japan"
+      location: "Fullerton, California"
     },
     {
-      name: "ETH Privacy Hackathon",
+      name: "Champions League Finals 2023",
       cost: tokens(0.25),
       tickets: 200,
       date: "Jun 9",
