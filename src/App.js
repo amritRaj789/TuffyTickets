@@ -14,10 +14,23 @@ import TuffyTickets from './abis/TuffyTickets.json'
 import config from './config.json'
 
 function App() {
-  
+
+  const [account, setAccount] = useState(null)
+
+  const loadBlockchainData = async () => {
+    const accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
+    setAccount(accounts[0])
+    console.log(accounts[0])
+  }
+
+  useEffect(() => {
+    loadBlockchainData()
+  }, [])
+
   return (
     <div>
         <h1>Hello, CPSC 597</h1>
+        <p>{account}</p>
     </div>
   );
 }
