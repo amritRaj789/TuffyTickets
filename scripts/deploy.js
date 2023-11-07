@@ -8,7 +8,7 @@ async function main() {
   // Setup accounts & variables
   const [deployer] = await ethers.getSigners()
   const NAME = "TuffyTickets"
-  const SYMBOL = "TM"
+  const SYMBOL = "TT"
 
   // Deploy contract
   const TuffyTickets = await ethers.getContractFactory("TuffyTickets")
