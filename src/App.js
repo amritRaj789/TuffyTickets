@@ -18,9 +18,19 @@ function App() {
   const [account, setAccount] = useState(null)
 
   const loadBlockchainData = async () => {
+
+    // Fetch Account
     const accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
-    setAccount(accounts[0])
-    console.log(accounts[0])
+    const account = ethers.utils.getAddress(accounts[0])
+    setAccount(account)
+
+    // Refresh Account
+    window.ethereum.on('accountsChanged', async () => {
+      const accounts = await window.ethereum.request({method: 'eth_requestAccounts'})
+      const account = ethers.utils.getAddress(accounts[0])
+      setAccount(account)
+    })
+
   }
 
   useEffect(() => {
