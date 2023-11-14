@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 
 // Components
-//import Navigation from './components/Navigation'
+import Navigation from './components/Navigation'
 //import Sort from './components/Sort'
 //import Card from './components/Card'
 //import SeatChart from './components/SeatChart'
@@ -39,6 +39,10 @@ function App() {
 
   return (
     <div>
+      <header>
+        <Navigation account={account} setAccount={setAccount} />
+        <h2 className='header__title'><strong>Event Tickets</strong></h2>
+      </header>
         <h1>Hello, CPSC 597</h1>
         <p>{account}</p>
     </div>
