@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import Navigation from './components/Navigation'
 import Sort from './components/Sort'
 import Card from './components/Card'
-//import SeatChart from './components/SeatChart'
+import SeatChart from './components/SeatChart'
 
 // ABIs
 import TuffyTickets from './abis/TuffyTickets.json'
@@ -89,6 +89,14 @@ function App() {
           />
         ))}
       </div>
+        {toggle && (
+          <SeatChart
+            occasion={occasion}
+            tuffyTickets={tuffyTickets}
+            provider={provider}
+            setToggle={setToggle}
+          />
+        )}
     </div>
   );
 }
